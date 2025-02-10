@@ -1,0 +1,860 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+  background-color: #f0f2f5;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.setup-section {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.grid-settings {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.grid-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.grid-input input[type="number"] {
+  width: 60px;
+}
+
+.import-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.secondary-btn {
+  background-color: #2196f3;
+}
+
+.secondary-btn:hover {
+  background-color: #1976d2;
+}
+
+.file-name {
+  color: #666;
+  font-size: 0.9em;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input[type="number"] {
+  padding: 8px;
+  margin: 0 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.hidden {
+  display: none;
+}
+
+.classroom {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.classroom-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  background-color: white;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  display: inline-flex;
+}
+
+.classroom-layout.hidden {
+  display: none;
+  opacity: 0;
+}
+
+.podium {
+  width: 200px;
+  height: 60px;
+  background-color: #795548;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.podium-text {
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.seating-chart {
+  display: grid;
+  gap: 10px;
+  justify-content: center;
+}
+
+.seat {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border: 2px solid #4caf50;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  transition: all 0.3s;
+  cursor: move;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.seat input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  font-size: 14px;
+  background: transparent;
+  transition: all 0.3s ease;
+  outline: none;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.seat input::placeholder {
+  color: #999;
+  opacity: 0.8;
+}
+
+.seat:not(.empty):hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.seat.drag-over:not(.empty) {
+  border: 2px dashed #4caf50;
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.seat.dragging {
+  opacity: 0.4;
+}
+
+.seat.empty {
+  background-color: #f5f5f5;
+  border: 2px dashed #ccc;
+  cursor: text;
+  box-shadow: none;
+}
+
+.seat.empty input {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+  cursor: text;
+  width: 90%;
+  height: 36px;
+  padding: 8px;
+  transition: all 0.2s ease;
+}
+
+.seat.empty:hover input {
+  border-color: #999;
+}
+
+.seat.empty input:focus {
+  border-color: #2196f3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+  background-color: #fff;
+}
+
+.seat.empty input::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+.seat.editing {
+  border: 2px solid #2196f3;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
+}
+
+.seat.editing input {
+  color: #333;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.seat.empty.editing {
+  border-style: solid;
+}
+
+.seat.empty.editing input {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.seat input:focus {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 600px) {
+  .seat {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.modal:not(.hidden) {
+  display: flex;
+}
+
+.modal-content {
+  position: relative;
+  min-width: 300px;
+  min-height: 400px;
+  background-color: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1200px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.modal-tip {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+
+.modal-tips {
+  margin-bottom: 15px;
+}
+
+.modal-header h2::after {
+  display: none;
+}
+
+.modal-footer {
+  padding-top: 20px;
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.confirm-btn {
+  padding: 10px 28px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.confirm-btn:hover {
+  background-color: #1976d2;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+.confirm-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.column-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  margin: 0 0 20px 0;
+  min-height: 0;
+  max-height: calc(85vh - 160px);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+}
+
+.resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  cursor: se-resize;
+  background: linear-gradient(135deg, transparent 50%, #666 50%);
+}
+
+.excel-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px;
+  margin: 0;
+  background: white;
+  table-layout: fixed;
+}
+
+.excel-table tbody {
+  display: block;
+  max-height: 100%;
+  overflow-y: visible;
+}
+
+.excel-table tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.excel-table td {
+  height: 24px;
+  padding: 4px 8px;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+  line-height: 1.2;
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 120px;
+  background-color: white;
+}
+
+.excel-table td:hover {
+  background-color: #f5f5f5;
+}
+
+.excel-table td.selected {
+  background-color: #e3f2fd;
+  border-color: #2196f3;
+}
+
+.excel-table td.temp-selected {
+  background-color: rgba(33, 150, 243, 0.3);
+  border-color: #2196f3;
+}
+
+.excel-table tbody tr:nth-child(even) {
+  background-color: transparent;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  background-color: #cccccc;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.print-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.print-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #607d8b;
+}
+
+.print-btn:hover {
+  background-color: #455a64;
+}
+
+.print-icon {
+  font-size: 1.2em;
+}
+
+.restart-section {
+  position: absolute;
+  top: 0;
+  right: 0;
+  top: 50px;
+}
+
+.restart-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ff5722;
+  width: 100%;
+  justify-content: center;
+}
+
+.restart-btn:hover {
+  background-color: #f4511e;
+}
+
+.restart-icon {
+  font-size: 1.2em;
+}
+
+/* 修改打印样式 */
+@media print {
+  /* 页面设置 */
+  @page {
+    margin: 0.5cm;
+    size: A4 landscape;
+  }
+
+  /* 教室布局容器 */
+  .classroom-layout {
+    position: relative !important;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-shadow: none;
+    padding: 10px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: transparent !important;
+    transform-origin: top center;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* 座位表网格 */
+  .seating-chart {
+    display: grid !important;
+    gap: 2px;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    width: 100%;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
+
+  /* 单个座位 */
+  .seat {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    border-color: #000;
+    border-width: 2px;
+    position: relative;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    margin: 1px;
+    font-size: 11px;
+  }
+
+  /* 隐藏所有座位的输入框 */
+  .seat input {
+    visibility: hidden;
+    display: none;
+  }
+
+  /* 显示有名字的座位的名字 */
+  .seat:not(.empty)::after {
+    content: attr(data-value);
+    visibility: visible;
+    position: relative;
+    color: #000 !important;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    word-break: break-all;
+    line-height: 1.2;
+    padding: 0 5px;
+  }
+
+  /* 空座位样式 */
+  .seat.empty {
+    border: 2px dashed #000 !important;
+    display: flex !important;
+  }
+
+  /* 空座位不显示任何文字 */
+  .seat.empty::after {
+    content: none;
+  }
+
+  /* 不打印空座位时的样式 */
+  body.hide-empty-seats .seat.empty {
+    visibility: hidden !important;
+    border: none !important;
+    background: none !important;
+    display: flex !important;
+  }
+
+  /* 讲台样式 */
+  .podium {
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    margin-bottom: 5px;
+    width: 150px;
+    height: 40px;
+    background-color: #795548 !important;
+    border: 3px solid #000 !important;
+    border-radius: 8px !important;
+  }
+
+  /* 讲台文字样式 */
+  .podium-text {
+    color: #000 !important;
+    font-size: 1.5em;
+    font-weight: 900 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    letter-spacing: 1px;
+  }
+
+  /* 只显示需要打印的元素 */
+  .print-section,
+  .import-section,
+  .setup-section,
+  .modal,
+  h1,
+  .restart-section {
+    display: none !important;
+  }
+}
+
+.print-options {
+  margin: 20px 0;
+}
+
+.print-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.print-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.duplicate-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 15px 0;
+}
+
+.duplicate-item {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.duplicate-item label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.duplicate-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-body {
+  padding: 20px 0;
+}
+
+.secondary-btn {
+  padding: 10px 28px;
+  background-color: #9e9e9e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.secondary-btn:hover {
+  background-color: #757575;
+}
+
+.modal-content::before {
+  display: none;
+}
+
+.column-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.column-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+.column-list::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 6px;
+  border: 2px solid #f1f1f1;
+}
+
+.column-list::-webkit-scrollbar-thumb:hover {
+  background: #9e9e9e;
+}
+
+/* 表头样式 */
+.excel-table th {
+  height: 24px;
+  padding: 4px 8px;
+  background-color: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 120px;
+}
+
+.material-icons {
+  font-size: 20px;
+}
+
+/* 修改右键菜单样式 */
+.context-menu {
+  position: fixed;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  min-width: 180px;
+  z-index: 9999;
+  animation: menuFadeIn 0.15s ease;
+}
+
+/* 添加隐藏样式 */
+.context-menu.hidden {
+  display: none;
+}
+
+.menu-title {
+  padding: 8px 16px;
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 4px;
+}
+
+.menu-item {
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.menu-item:hover {
+  background-color: #f5f5f5;
+}
+
+.menu-item .material-icons {
+  font-size: 20px;
+  color: #666;
+}
+
+.menu-item[data-action="delete"]:hover {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.menu-item[data-action="delete"]:hover .material-icons {
+  color: #f44336;
+}
+
+.menu-item[data-action="clear"]:hover {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.menu-item[data-action="clear"]:hover .material-icons {
+  color: #2196f3;
+}
+
+/* 添加动画效果 */
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.seat.deleting {
+  animation: seatDelete 0.3s ease;
+}
+
+.seat.clearing {
+  animation: seatClear 0.3s ease;
+}
+
+@keyframes seatDelete {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes seatClear {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
